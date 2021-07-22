@@ -51,7 +51,7 @@ areas = list()
 # 영역을 다 돌 때까지
 while check < cnt:
     queue = deque()
-    area = 0  # 집의 개수 카운트
+    area = 0  # 칸의 개수 카운트 (넓이)
 
     # 방문하지 않은 칸 하나 정해서 큐에 넣음
     # 여기서 node : (x, y), node[0] : x, node[1] : y
