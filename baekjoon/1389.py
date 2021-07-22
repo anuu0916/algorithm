@@ -3,7 +3,7 @@ import sys
 from collections import deque
 
 n, m = map(int, sys.stdin.readline().split())
-adj = {}
+adj = {}  # 배열로 만들걸 그랬다...
 
 # 입력받은 관계만큼 인접리스트 생성
 # 관계 중복으로 입력될 수도 있다고 해서 처음엔 집합으로 하려고 했다가,
