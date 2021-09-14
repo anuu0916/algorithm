@@ -45,5 +45,4 @@ for i in range(m):
     if upper == 0 and card[n - 1] == num:
         upper = n
     lower = lower_bound(num)
-    # print(num, upper, lower)
     print(upper - lower, end=" ")
