@@ -17,7 +17,6 @@ def bfs():
     queue = deque([[1, a[0], operate]])
 
     while queue:
-        print(queue)
         start, n, op = queue.popleft()
 
         if op.count(0) == 4:
@@ -39,8 +38,13 @@ def bfs():
                 tmp = [op[0], op[1], op[2] - 1, op[3]]
                 queue.append([start + 1, n * a[start], tmp])
             else:
+                res = n // a[start]
+                if n < 0:
+                    res = -n // a[start]
+                    res = -res
+
                 tmp = [op[0], op[1], op[2], op[3] - 1]
-                queue.append([start + 1, n + a[start], tmp])
+                queue.append([start + 1, res, tmp])
 
 
 bfs()
