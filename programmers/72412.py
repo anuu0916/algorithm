@@ -8,6 +8,8 @@ def solution(info, query):
         tmp = info[i].split()
         info_words.append(tmp)
     
+    # 지원자 성적순으로 정렬하고 이진탐색으로 찾기
+
     for i in range(len(query)):
         words = query[i].split(" and ")
         tmp = words.pop().split()
@@ -15,13 +17,10 @@ def solution(info, query):
         
         cnt = 0
         for j in range(len(info)):
-            for k in range(5): # len(words)
-                if k < 4:
+            if int(info_words[j][k]) >= int(words[k]):
+                for k in range(4): # len(words)
                     if info_words[j][k] != words[k] and words[k] != '-':
                         break
-                else:
-                    if int(info_words[j][k]) >= int(words[k]):
-                        cnt += 1
         
         answer.append(cnt)
 
