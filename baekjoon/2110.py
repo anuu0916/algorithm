@@ -1,9 +1,11 @@
 # 2110 공유기 설치
 # 구글링했습니다..
-n, c = map(int, input().split())
+import sys
+
+n, c = map(int, sys.stdin.readline().split())
 house = list()
 for i in range(n):
-    house.append(int(input()))
+    house.append(int(sys.stdin.readline()))
 
 house.sort()
 start = 1
