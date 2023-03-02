@@ -2,17 +2,22 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
-	static private class Edge{
-		int from, to, weight;
+	static private class Edge implements Comparable<Edge>{
+		int to, weight;
 
-		public Edge(int from, int to, int weight) {
+		public Edge(int to, int weight) {
 			super();
-			this.from = from;
 			this.to = to;
 			this.weight = weight;
+		}
+
+		@Override
+		public int compareTo(Edge o) {
+			return Integer.compare(this.weight, o.weight);
 		}
 		
 	}
@@ -23,7 +28,6 @@ public class Main {
 		int E = Integer.parseInt(stk.nextToken());
 		
 		int start = Integer.parseInt(br.readLine());
-//		int[][] adjMatrix = new int[V+1][V+1];
 		ArrayList<Edge>[] adj = new ArrayList[V+1];
 		for (int i = 1; i < V+1; i++) {
 			adj[i] = new ArrayList<>();
@@ -35,44 +39,36 @@ public class Main {
 			int to = Integer.parseInt(stk.nextToken());
 			int weight = Integer.parseInt(stk.nextToken());
 			
-			adj[from].add(new Edge(from, to, weight));
+			adj[from].add(new Edge(to, weight));
 		}
 		
 		int[] distance = new int[V+1];
-		boolean[] visited = new boolean[V+1];
-		
+		PriorityQueue<Edge> queue = new PriorityQueue<>();
 		final int INF = Integer.MAX_VALUE;
 		Arrays.fill(distance, INF);
+		queue.offer(new Edge(start, 0));
 		distance[start] = 0;
 		
-		int min, cur;
-		for (int i = 1; i < V+1; i++) {
-			cur = -1;
-			min = INF;
+		while(!queue.isEmpty()) {
+			Edge cur = queue.poll();
+			int v = cur.to;
+			int w = cur.weight;
+			if (distance[v] < w) continue;
 			
-			for (int j = 1; j < V+1; j++) {
-				if (!visited[j] && min > distance[j]) {
-					cur = j;
-					min = distance[j];
+			for (Edge edge : adj[v]) {
+				if(distance[edge.to] > w + edge.weight) {
+					distance[edge.to] = w + edge.weight;
+					queue.offer(new Edge(edge.to, distance[edge.to]));
 				}
 			}
-
-			if (cur == -1) break;
-			
-			visited[cur] = true;
-			
-			for (Edge edge : adj[cur]) {
-				if (!visited[edge.to] && distance[edge.to] > min + edge.weight) {
-					distance[edge.to] = min + edge.weight;
-				}
-			}
-			
 		}
 		
+		StringBuilder sb = new StringBuilder();
 		for (int i = 1; i < V+1; i++) {
-			System.out.println(distance[i] == INF ? "INF" : distance[i]);
+			sb.append(distance[i] == INF ? "INF" : distance[i]).append("\n");
 		}
 		
+		System.out.print(sb);
 	}
 
 }
